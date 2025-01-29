@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Registrar Doação</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label for="pessoa_id" class="form-label">Pessoa</label>
+        <select class="form-control" id="pessoa_id" name="pessoa_id" required>
+            {% for pessoa in pessoas %}
+            <option value="{{ pessoa.id }}">{{ pessoa.nome }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="produto_id" class="form-label">Produto</label>
+        <select class="form-control" id="produto_id" name="produto_id" required>
+            {% for produto in produtos %}
+            <option value="{{ produto.id }}">{{ produto.nome_produto }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="quantidade" class="form-label">Quantidade</label>
+        <input type="number" class="form-control" id="quantidade" name="quantidade" required>
+    </div>
+    <div class="mb-3">
+        <label for="data_doacao" class="form-label">Data da Doação</label>
+        <input type="date" class="form-control" id="data_doacao" name="data_doacao">
+    </div>
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+{% endblock %}

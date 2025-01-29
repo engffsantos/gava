@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title | default('Sistema de Doações') }}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilo customizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body .corpo {
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            position: fixed;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .sidebar a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="corpo">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Sistema de Doações</h2>
+        <a href="/">Início</a>
+        <a href="/pessoas">Listar Pessoas</a>
+        <a href="/cadastrar_pessoa">Cadastrar Pessoa</a>
+        <a href="/produtos">Listar Produtos</a>
+        <a href="/cadastrar_produto">Cadastrar Produto</a>
+        <a href="/doacoes">Listar Doações</a>
+        <a href="/registrar_doacao">Cadastrar Doação</a>
+        <a class="nav-link" href="/pedidos">Pedidos</a>
+        <a class="nav-link" href="/cadastrar_pedido">Fazer Pedido</a>
+    </div>
+    <!-- Conteúdo -->
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+    <!-- Rodapé -->
+    <footer class="bg-light text-center py-3 mt-5 border-top">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Sistema de Doações</p>
+            <p class="text-muted small">Desenvolvido para facilitar a gestão de doações.</p>
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

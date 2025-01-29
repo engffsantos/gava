@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Relatório de Doações</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome da Pessoa</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for doacao in doacoes %}
+        <tr>
+            <td>{{ doacao.id }}</td>
+            <td>{{ doacao.pessoa.nome }}</td>
+            <td>{{ doacao.produto.nome_produto }}</td>
+            <td>{{ doacao.quantidade }}</td>
+            <td>{{ doacao.data_doacao }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

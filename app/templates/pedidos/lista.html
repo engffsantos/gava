@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Pedidos de Doação</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome da Pessoa</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Data do Pedido</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pedido in pedidos %}
+        <tr>
+            <td>{{ pedido.id }}</td>
+            <td>{{ pedido.pessoa.nome }}</td>
+            <td>{{ pedido.produto.nome_produto }}</td>
+            <td>{{ pedido.quantidade }}</td>
+            <td>{{ pedido.data_pedido.strftime('%d/%m/%Y') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

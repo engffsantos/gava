@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mt-4">Cadastrar Produto</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label for="nome_produto" class="form-label">Nome do Produto</label>
+        <input type="text" class="form-control" id="nome_produto" name="nome_produto" placeholder="Ex.: Arroz" required>
+    </div>
+    <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição</label>
+        <textarea class="form-control" id="descricao" name="descricao" rows="4" placeholder="Ex.: Produto de alta qualidade."></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="quantidade" class="form-label">Quantidade</label>
+        <input type="number" class="form-control" id="quantidade" name="quantidade" min="1" step="1" placeholder="Ex.: 50" required>
+    </div>
+    <div class="mb-3">
+        <label for="data_entrada" class="form-label">Data de Entrada</label>
+        <input type="date" class="form-control" id="data_entrada" name="data_entrada">
+    </div>
+    <button type="submit" class="btn btn-success">Cadastrar Produto</button>
+</form>
+{% endblock %}
