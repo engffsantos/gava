@@ -1,15 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Lista de Pedidos de Doação</h2>
-<table class="table">
+<h1>Lista de Pedidos de Doação</h1>
+
+<!-- Filtro de Pesquisa -->
+<form method="GET" action="{{ url_for('listar_pedidos') }}" class="mb-3" style="display: flex; gap: 10px;">
+    <input type="text" name="search_pessoa" class="form-control" placeholder="Buscar por pessoa..."
+           value="{{ request.args.get('search_pessoa', '') }}">
+    <input type="text" name="search_produto" class="form-control" placeholder="Buscar por produto..."
+           value="{{ request.args.get('search_produto', '') }}">
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+<!-- Botão para gerar PDF -->
+    <form method="GET" action="{{ url_for('relatorio_pedidos_pdf') }}" class="mb-3">
+    <input type="hidden" name="search_pessoa" value="{{ request.args.get('search_pessoa', '') }}">
+    <input type="hidden" name="search_produto" value="{{ request.args.get('search_produto', '') }}">
+    <button type="submit" class="btn btn-success">Gerar PDF</button>
+</form>
+
+<table class="table table-striped">
     <thead>
         <tr>
             <th>ID</th>
             <th>Nome da Pessoa</th>
             <th>Produto</th>
             <th>Quantidade</th>
-            <th>Data do Pedido</th>
+            <th>Data</th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +36,7 @@
             <td>{{ pedido.pessoa.nome }}</td>
             <td>{{ pedido.produto.nome_produto }}</td>
             <td>{{ pedido.quantidade }}</td>
-            <td>{{ pedido.data_pedido.strftime('%d/%m/%Y') }}</td>
+            <td>{{ pedido.data_pedido }}</td>
         </tr>
         {% endfor %}
     </tbody>

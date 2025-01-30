@@ -4,29 +4,57 @@
 <h2>Registrar Doação</h2>
 <form method="POST">
     <div class="mb-3">
-        <label for="pessoa_id" class="form-label">Pessoa</label>
+    <label for="pessoa_id" class="form-label">Pessoa</label>
+    <input type="text" class="form-control" id="search_pessoa" placeholder="Digite para buscar...">
+    <br>
         <select class="form-control" id="pessoa_id" name="pessoa_id" required>
-            {% for pessoa in pessoas %}
-            <option value="{{ pessoa.id }}">{{ pessoa.nome }}</option>
-            {% endfor %}
-        </select>
+        {% for pessoa in pessoas if pessoa.ativo %}
+        <option value="{{ pessoa.id }}">{{ pessoa.nome }}</option>
+        {% endfor %}
+    </select>
     </div>
+
     <div class="mb-3">
         <label for="produto_id" class="form-label">Produto</label>
         <select class="form-control" id="produto_id" name="produto_id" required>
             {% for produto in produtos %}
-            <option value="{{ produto.id }}">{{ produto.nome_produto }}</option>
+            <option value="{{ produto.id }}" {% if produto.quantidade == 0 %}disabled{% endif %}>
+                {{ produto.nome_produto }} ({{ produto.quantidade }} disponíveis)
+            </option>
             {% endfor %}
         </select>
     </div>
+
     <div class="mb-3">
         <label for="quantidade" class="form-label">Quantidade</label>
         <input type="number" class="form-control" id="quantidade" name="quantidade" required>
     </div>
     <div class="mb-3">
         <label for="data_doacao" class="form-label">Data da Doação</label>
-        <input type="date" class="form-control" id="data_doacao" name="data_doacao">
+        <input type="date" class="form-control" id="data_doacao" name="data_doacao" required value="{{ today }}">
+
     </div>
     <button type="submit" class="btn btn-primary">Registrar</button>
 </form>
+
+<script>
+    document.getElementById('search_pessoa').addEventListener('input', function() {
+        let searchValue = this.value.toLowerCase();
+        let select = document.getElementById('pessoa_id');
+
+        for (let option of select.options) {
+            if (option.value) { // Evita esconder placeholders vazios
+                option.hidden = !option.text.toLowerCase().includes(searchValue);
+            }
+        }
+
+        // Garante que o primeiro item visível seja selecionado automaticamente
+        let firstVisible = Array.from(select.options).find(opt => !opt.hidden);
+        if (firstVisible) {
+            select.value = firstVisible.value;
+        }
+    });
+</script>
+
+
 {% endblock %}

@@ -34,3 +34,10 @@ with app.app_context():
         print("✅ Tabela 'Pedidos' criada com sucesso!")
     except Exception as e:
         print(f"❌ Erro ao criar a tabela 'doacoes': {e}")
+    try:
+        print("🛠 Criando tabela 'pedidos'...")
+        PedidoDoacao.__table__.create(db.engine, checkfirst=True)  # Criando apenas a tabela Doacao
+        print("✅ Tabela 'Pedidos' criada com sucesso!")
+    except Exception as e:
+        print(f"❌ Erro ao criar a tabela 'doacoes': {e}")
+

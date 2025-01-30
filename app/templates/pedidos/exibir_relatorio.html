@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="text-center mt-4">Relatório de Pedidos de Doação</h2>
+
+<!-- Exibe o PDF no meio da página -->
+<div class="d-flex justify-content-center mt-4">
+    <iframe src="{{ url_for('static', filename=pdf_filename) }}" width="80%" height="600px"></iframe>
+</div>
+
+<!-- Botão para download do PDF -->
+<div class="text-center mt-3">
+    <a href="{{ url_for('static', filename=pdf_filename) }}" class="btn btn-success" download>Baixar PDF</a>
+</div>
+{% endblock %}

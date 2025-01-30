@@ -16,9 +16,10 @@
         <input type="number" class="form-control" id="quantidade" name="quantidade" min="1" step="1" placeholder="Ex.: 50" required>
     </div>
     <div class="mb-3">
-        <label for="data_entrada" class="form-label">Data de Entrada</label>
-        <input type="date" class="form-control" id="data_entrada" name="data_entrada">
-    </div>
+    <label for="data_entrada" class="form-label">Data de Entrada</label>
+    <input type="date" class="form-control" id="data_entrada" name="data_entrada" value="{{ request.form.get('data_entrada', '') }}">
+</div>
+
     <button type="submit" class="btn btn-success">Cadastrar Produto</button>
 </form>
 {% endblock %}

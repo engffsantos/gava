@@ -11,6 +11,7 @@ migrate = Migrate()
 def create_app():
     """Cria e configura a aplicação Flask."""
     app = Flask(__name__)
+
     app.config['SECRET_KEY'] = os.urandom(24)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # Banco de dados SQLite
@@ -22,7 +23,7 @@ def create_app():
 
     # Importa os modelos dentro do contexto da aplicação
     with app.app_context():
-        from app.models import pessoa, produto, doacao  # IMPORTANTE: Certifique-se de que esses arquivos existem!
+        from app.models import pessoa, produto, doacao, pedido_doacao  # IMPORTANTE: Certifique-se de que esses arquivos existem!
         db.create_all()  # Criar tabelas no SQLite se ainda não existirem
 
     # Registra as rotas principais

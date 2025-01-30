@@ -1,12 +1,19 @@
-from datetime import datetime
-
 from flask import render_template, request, redirect, url_for, flash
 from app.models.pessoa import Pessoa
+from app.models.doacao import Doacao
 from app.__init__ import db
+from datetime import datetime
+
 
 def listar_pessoas():
-    pessoas = Pessoa.query.all()
-    return render_template('pessoas/lista.html', pessoas=pessoas)
+    search = request.args.get('search', '').strip()  # Obtém o valor da busca
+    if search:
+        pessoas = Pessoa.query.filter(Pessoa.nome.ilike(f"%{search}%")).all()  # Filtra por nome
+    else:
+        pessoas = Pessoa.query.filter_by(ativo=True).all()  # Retorna todas as pessoas ativas
+    for pessoa in pessoas:
+        pessoa.doacoes = Doacao.query.filter_by(pessoa_id=pessoa.id).all()
+    return render_template('pessoas/lista.html', pessoas=pessoas, search=search)
 
 def cadastrar_pessoa():
     if request.method == 'POST':
@@ -30,3 +37,29 @@ def cadastrar_pessoa():
         flash('Pessoa cadastrada com sucesso!', 'success')
         return redirect(url_for('listar_pessoas'))
     return render_template('pessoas/cadastro.html')
+
+def editar_pessoa(id):
+    pessoa = Pessoa.query.get_or_404(id)
+
+    if request.method == 'POST':
+        pessoa.nome = request.form['nome']
+        pessoa.endereco = request.form['endereco']
+        pessoa.bairro = request.form['bairro']
+        pessoa.telefone = request.form['telefone']
+        pessoa.filhos = request.form['filhos']
+        pessoa.profissao = request.form['profissao']
+        pessoa.qtd_pessoas = request.form['qtd_pessoas']
+        pessoa.locomocao = request.form['locomocao']
+
+        db.session.commit()
+        flash('Pessoa atualizada com sucesso!', 'success')
+        return redirect(url_for('listar_pessoas'))
+
+    return render_template('pessoas/editar.html', pessoa=pessoa)
+
+def desativar_pessoa(id):
+    pessoa = Pessoa.query.get_or_404(id)
+    pessoa.ativo = False
+    db.session.commit()
+    flash('Pessoa desativada com sucesso!', 'success')
+    return redirect(url_for('listar_pessoas'))
