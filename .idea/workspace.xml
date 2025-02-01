@@ -4,37 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93f0b9b1-009c-4dea-9cf3-976239754924" name="Changes" comment="Alteração no tipo de banco de dados, para SQLite">
-      <change afterPath="$PROJECT_DIR$/app/templates/pedidos/relatorio_pedidos.html" afterDir="false" />
+    <list default="true" id="93f0b9b1-009c-4dea-9cf3-976239754924" name="Changes" comment="Atualização do requirements.txt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/doacao_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/doacao_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/pedido_doacao_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/pedido_doacao_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/pessoa_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/pessoa_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/produto_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/produto_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/database.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/doacao.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/doacao.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/pedido_doacao.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/pedido_doacao.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/pessoa.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/pessoa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/produto.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/produto.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/doacoes/registro.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/doacoes/registro.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/doacoes/relatorio.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/doacoes/relatorio.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/pedidos/lista.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/pedidos/lista.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/pessoas/lista.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/pessoas/lista.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/produtos/cadastro.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/produtos/cadastro.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/produtos/lista.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/produtos/lista.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_tables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/alembic.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/env.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/script.py.mako" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/22ab8c818c6c_criação_inicial_das_tabelas2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/6ed31a9d20c1_criação_inicial_das_tabelas.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/8ec2400aad74_criação_inicial_das_tabelas.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/d771f7122b63_atualização.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,25 +57,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Flask server.Flask (app/__init__.py).executor": "Run",
-    "Flask server.Flask (create_tables.py).executor": "Run",
-    "Flask server.Flask (criar.py).executor": "Run",
-    "Flask server.Gava.executor": "Run",
-    "Python.db.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Flask server.Flask (app/__init__.py).executor&quot;: &quot;Run&quot;,
+    &quot;Flask server.Flask (create_tables.py).executor&quot;: &quot;Run&quot;,
+    &quot;Flask server.Flask (criar.py).executor&quot;: &quot;Run&quot;,
+    &quot;Flask server.Gava.executor&quot;: &quot;Run&quot;,
+    &quot;Python.db.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\Projetos_EasyData360\Gava\app" />
@@ -191,7 +162,11 @@
       <workItem from="1737629194997" duration="1447000" />
       <workItem from="1738151801480" duration="10449000" />
       <workItem from="1738169699977" duration="7915000" />
-      <workItem from="1738238533112" duration="16288000" />
+      <workItem from="1738238533112" duration="16594000" />
+      <workItem from="1738257815367" duration="4511000" />
+      <workItem from="1738277459755" duration="699000" />
+      <workItem from="1738324901351" duration="1493000" />
+      <workItem from="1738406832545" duration="3583000" />
     </task>
     <task id="LOCAL-00001" summary="Commit inicial">
       <option name="closed" value="true" />
@@ -265,7 +240,31 @@
       <option name="project" value="LOCAL" />
       <updated>1737634194830</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="✨ Melhorias e ajustes na gestão de Pessoas e Doações&#10;&#10;- Adicionado filtro de pesquisa por nome nas telas de lista.&#10;- Ajustado botão de excluir na tela de Pessoas para desabilitar em vez de remover.&#10;- Permitir visualização das doações efetuadas e pedidos de doação ao clicar no nome da pessoa.&#10;- Impedida duplicação de cadastros de produtos e pessoas.&#10;- Bloqueada doação de produtos com estoque zerado, exibindo mensagem de erro.&#10;- Melhorado relatório de pessoa com doações recebidas e sinalização de pedidos já realizados, incluindo novo filtro.&#10;- Criado botão para geração de PDF com pedidos de doação por cliente.">
+      <option name="closed" value="true" />
+      <created>1738257222302</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1738257222302</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Atualização do requirements.txt">
+      <option name="closed" value="true" />
+      <created>1738257255097</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1738257255097</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Atualização do requirements.txt">
+      <option name="closed" value="true" />
+      <created>1738326182090</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1738326182090</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -287,13 +286,15 @@
     <MESSAGE value="Atualização de todos os aqutivos" />
     <MESSAGE value="Atualização do README.md" />
     <MESSAGE value="Funcionalidades das doações" />
-    <option name="LAST_COMMIT_MESSAGE" value="Funcionalidades das doações" />
+    <MESSAGE value="✨ Melhorias e ajustes na gestão de Pessoas e Doações&#10;&#10;- Adicionado filtro de pesquisa por nome nas telas de lista.&#10;- Ajustado botão de excluir na tela de Pessoas para desabilitar em vez de remover.&#10;- Permitir visualização das doações efetuadas e pedidos de doação ao clicar no nome da pessoa.&#10;- Impedida duplicação de cadastros de produtos e pessoas.&#10;- Bloqueada doação de produtos com estoque zerado, exibindo mensagem de erro.&#10;- Melhorado relatório de pessoa com doações recebidas e sinalização de pedidos já realizados, incluindo novo filtro.&#10;- Criado botão para geração de PDF com pedidos de doação por cliente." />
+    <MESSAGE value="Atualização do requirements.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Atualização do requirements.txt" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Gava$Flask__app___init___py_.coverage" NAME="Flask (app/__init__.py) Coverage Results" MODIFIED="1737370689547" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Gava$Gava.coverage" NAME="Gava Coverage Results" MODIFIED="1737634247838" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Gava$Flask__criar_py_.coverage" NAME="Flask (criar.py) Coverage Results" MODIFIED="1737370030448" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/gava$Gava.coverage" NAME="Gava Coverage Results" MODIFIED="1738256701713" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gava$Gava.coverage" NAME="Gava Coverage Results" MODIFIED="1738407326332" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Gava$db.coverage" NAME="db Coverage Results" MODIFIED="1737370550305" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app/utils" />
     <SUITE FILE_PATH="coverage/gava$Flask__create_tables_py_.coverage" NAME="Flask (create_tables.py) Coverage Results" MODIFIED="1738246061946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Gava$Flask__create_tables_py_.coverage" NAME="Flask (create_tables.py) Coverage Results" MODIFIED="1737554123910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
