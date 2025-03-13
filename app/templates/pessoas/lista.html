@@ -3,11 +3,15 @@
 {% block content %}
 <h2>Lista de Pessoas</h2>
 
+
 <!-- Filtro de Pesquisa -->
-<form method="GET" action="{{ url_for('listar_pessoas') }}" class="mb-3" style="display: flex;">
+<form method="GET" action="{{ url_for('listar_pessoas') if request.path != url_for('listar_pessoas_inativas') else url_for('listar_pessoas_inativas') }}" class="mb-3" style="display: flex; gap: 10px;">
     <input type="text" name="search" class="form-control" placeholder="Buscar por nome..."
-           value="{{ request.args.get('search', '') }}" style="margin-right: 20px;">
-    <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+           value="{{ request.args.get('search', '') }}">
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+    <a href="{{ url_for('listar_pessoas') if request.path == url_for('listar_pessoas_inativas') else url_for('listar_pessoas_inativas') }}" class="btn btn-secondary">
+        {{ "Ativos" if request.path == url_for('listar_pessoas_inativas') else "Inativos" }}
+    </a>
 </form>
 
 <table class="table table-striped">
@@ -31,9 +35,9 @@
             <td>{{ pessoa.telefone }}</td>
             <td><button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalDoacoes{{ pessoa.id }}">Ver</button></td>
             <td>
-                <a href="{{ url_for('editar_pessoa', id=pessoa.id) }}" class="btn btn-warning">Editar</a>
+                <a href="{{ url_for('editar_pessoa', id=pessoa.id) }}" class="btn btn-warning btn-sm">Editar</a>
                 <form action="{{ url_for('desativar_pessoa', id=pessoa.id) }}" method="POST" style="display:inline;">
-                    <button type="submit" class="btn btn-danger btn-sm">Desativar</button>
+                    <button type="submit" class="btn btn-danger btn-sm">{% if pessoa.ativo %}Desativar{% else %}Ativar{% endif %}</button>
                 </form>
             </td>
             <td>{% if pessoa.ativo %}✅ Ativo{% else %}❌ Inativo{% endif %}</td>

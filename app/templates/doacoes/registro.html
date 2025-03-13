@@ -9,7 +9,7 @@
     <br>
         <select class="form-control" id="pessoa_id" name="pessoa_id" required>
         {% for pessoa in pessoas if pessoa.ativo %}
-        <option value="{{ pessoa.id }}">{{ pessoa.nome }}</option>
+        <option value="{{ pessoa.id }}" {% if pessoa.id == pessoa_id %}selected{% endif %}>{{ pessoa.nome }}</option>
         {% endfor %}
     </select>
     </div>
@@ -18,7 +18,7 @@
         <label for="produto_id" class="form-label">Produto</label>
         <select class="form-control" id="produto_id" name="produto_id" required>
             {% for produto in produtos %}
-            <option value="{{ produto.id }}" {% if produto.quantidade == 0 %}disabled{% endif %}>
+            <option value="{{ produto.id }}" {% if produto.quantidade == 0 %}disabled{% endif %} {% if produto.id == produto_id %}selected{% endif %}>
                 {{ produto.nome_produto }} ({{ produto.quantidade }} disponíveis)
             </option>
             {% endfor %}
@@ -27,7 +27,7 @@
 
     <div class="mb-3">
         <label for="quantidade" class="form-label">Quantidade</label>
-        <input type="number" class="form-control" id="quantidade" name="quantidade" required>
+        <input type="number" class="form-control" id="quantidade" name="quantidade" required value="{{ quantidade }}">
     </div>
     <div class="mb-3">
         <label for="data_doacao" class="form-label">Data da Doação</label>
@@ -55,6 +55,5 @@
         }
     });
 </script>
-
 
 {% endblock %}

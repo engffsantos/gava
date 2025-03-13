@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Editar Doação</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label for="pessoa_id" class="form-label">Pessoa</label>
+        <select class="form-control" id="pessoa_id" name="pessoa_id" disabled>
+            <option value="{{ doacao.pessoa.id }}" selected>{{ doacao.pessoa.nome }}</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="produto_id" class="form-label">Produto</label>
+        <select class="form-control" id="produto_id" name="produto_id" disabled>
+            <option value="{{ doacao.produto.id }}" selected>{{ doacao.produto.nome_produto }}</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="quantidade" class="form-label">Quantidade</label>
+        <input type="number" class="form-control" id="quantidade" name="quantidade" required value="{{ doacao.quantidade }}">
+    </div>
+    <div class="mb-3">
+        <label for="data_doacao" class="form-label">Data da Doação</label>
+        <input type="date" class="form-control" id="data_doacao" name="data_doacao" required value="{{ doacao.data_doacao }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    <a href="{{ url_for('listar_doacoes') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

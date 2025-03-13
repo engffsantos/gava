@@ -22,7 +22,8 @@ class Doacao(db.Model):
 
     @staticmethod
     def registrar_doacao(pessoa_id, produto_id, quantidade):
-        if not Doacao.validar_estoque(produto_id, quantidade):
+        produto = Produto.query.get(produto_id)
+        if not produto or produto.quantidade < quantidade:
             return jsonify({"erro": "Estoque insuficiente para doação."}), 400
 
         nova_doacao = Doacao(
@@ -31,8 +32,14 @@ class Doacao(db.Model):
             quantidade=quantidade,
             data_doacao=db.func.current_date()
         )
-        db.session.add(nova_doacao)
-        produto = Produto.query.get(produto_id)
         produto.quantidade -= quantidade
+        db.session.add(nova_doacao)
         db.session.commit()
+
+        # Excluir o pedido de doação correspondente, se existir
+        pedido = PedidoDoacao.query.filter_by(pessoa_id=pessoa_id, produto_id=produto_id, quantidade=quantidade).first()
+        if pedido:
+            db.session.delete(pedido)
+            db.session.commit()
+
         return jsonify({"mensagem": "Doação registrada com sucesso."}), 200

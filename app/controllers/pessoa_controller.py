@@ -59,7 +59,14 @@ def editar_pessoa(id):
 
 def desativar_pessoa(id):
     pessoa = Pessoa.query.get_or_404(id)
-    pessoa.ativo = False
+    if pessoa.ativo == False:
+        pessoa.ativo = True
+    else:
+        pessoa.ativo = False
     db.session.commit()
     flash('Pessoa desativada com sucesso!', 'success')
     return redirect(url_for('listar_pessoas'))
+
+def listar_pessoas_inativas():
+    pessoas = Pessoa.query.filter_by(ativo=False).all()
+    return render_template('pessoas/lista.html', pessoas=pessoas)

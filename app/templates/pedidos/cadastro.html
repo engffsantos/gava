@@ -6,9 +6,10 @@
     <div class="mb-3">
         <label for="pessoa_id" class="form-label">Pessoa</label>
         <select class="form-control" id="pessoa_id" name="pessoa_id" required>
-            {% for pessoa in pessoas %}
-            <option value="{{ pessoa.id }}">{{ pessoa.nome }}</option>
+            {% for pessoa in pessoas if pessoa.ativo %}
+            <option value="{{ pessoa.id }}" {% if pessoa.id == pessoa_id %}selected{% endif %}>{{ pessoa.nome }}</option>
             {% endfor %}
+
         </select>
     </div>
     <div class="mb-3">

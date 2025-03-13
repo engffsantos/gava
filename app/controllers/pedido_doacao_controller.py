@@ -139,3 +139,10 @@ def gerar_relatorio_pdf():
 
     # **Retorna a página que exibe o PDF**
     return render_template("pedidos/exibir_relatorio.html", pdf_filename=pdf_filename)
+
+def delete_pedido(id):
+    pedido = PedidoDoacao.query.get_or_404(id)
+    db.session.delete(pedido)
+    db.session.commit()
+    flash('Pedido excluído com sucesso!', 'success')
+    return redirect(url_for('listar_pedidos'))

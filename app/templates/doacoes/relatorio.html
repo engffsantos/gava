@@ -20,6 +20,7 @@
             <th>Produto</th>
             <th>Quantidade</th>
             <th>Data</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +31,12 @@
             <td>{{ doacao.produto.nome_produto }}</td>
             <td>{{ doacao.quantidade }}</td>
             <td>{{ doacao.data_doacao }}</td>
+            <td>
+                <a href="{{ url_for('editar_doacao', id=doacao.id) }}" class="btn btn-warning btn-sm">Editar</a>
+                <form action="{{ url_for('delete_doacao', id=doacao.id) }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir esta doacao?')">X</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

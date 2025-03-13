@@ -13,7 +13,7 @@
 </form>
 
 <!-- Botão para gerar PDF -->
-    <form method="GET" action="{{ url_for('relatorio_pedidos_pdf') }}" class="mb-3">
+<form method="GET" action="{{ url_for('relatorio_pedidos_pdf') }}" class="mb-3">
     <input type="hidden" name="search_pessoa" value="{{ request.args.get('search_pessoa', '') }}">
     <input type="hidden" name="search_produto" value="{{ request.args.get('search_produto', '') }}">
     <button type="submit" class="btn btn-success">Gerar PDF</button>
@@ -27,6 +27,7 @@
             <th>Produto</th>
             <th>Quantidade</th>
             <th>Data</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -37,6 +38,16 @@
             <td>{{ pedido.produto.nome_produto }}</td>
             <td>{{ pedido.quantidade }}</td>
             <td>{{ pedido.data_pedido }}</td>
+            <td>
+                <a href="{{ url_for('validar_pedido', pessoa_id=pedido.pessoa.id, produto_id=pedido.produto.id, quantidade=pedido.quantidade) }}"
+                   class="btn btn-success">
+                   Atender Pedido
+                </a>
+                <form action="{{ url_for('delete_pedido', id=pedido.id) }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este pedido?')">X</button>
+                </form>
+            </td>
+
         </tr>
         {% endfor %}
     </tbody>

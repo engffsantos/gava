@@ -31,3 +31,13 @@ def init_routes(app):
     app.add_url_rule('/cadastrar_pedido', 'cadastrar_pedido', pedido_doacao_controller.cadastrar_pedido, methods=['GET', 'POST'])
     app.add_url_rule('/editar_pedido/<int:id>', 'editar_pedido', pedido_doacao_controller.editar_pedido, methods=['GET', 'POST'])
     app.add_url_rule('/relatorio_pedidos_pdf', 'relatorio_pedidos_pdf', pedido_doacao_controller.gerar_relatorio_pdf, methods=['GET'])
+    #Linha add para excluir pedidos
+    app.add_url_rule('/pedidos/delete/<int:id>', 'delete_pedido', pedido_doacao_controller.delete_pedido, methods=['POST'])
+    #Add para exlcuir doações
+    app.add_url_rule('/doacoes/delete/<int:id>', 'delete_doacao', doacao_controller.delete_doacao, methods=['POST'])
+    #Add Validação de Pedidos
+    app.add_url_rule('/validar_pedido', 'validar_pedido', doacao_controller.validar_pedido, methods=['GET'])
+    #add listar inativos
+    app.add_url_rule('/pessoas/inativas', 'listar_pessoas_inativas', pessoa_controller.listar_pessoas_inativas)
+
+
