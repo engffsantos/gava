@@ -26,12 +26,15 @@ def init_routes(app):
     app.add_url_rule('/registrar_doacao', 'registrar_doacao', doacao_controller.registrar_doacao, methods=['GET', 'POST'])
     app.add_url_rule('/editar_doacao/<int:id>', 'editar_doacao', doacao_controller.editar_doacao, methods=['GET', 'POST'])
     app.add_url_rule('/doacoes', 'relatorio_doacoes', doacao_controller.listar_doacoes)
+    app.add_url_rule('/relatorio_doacoes_pdf', 'relatorio_doacoes_pdf', doacao_controller.gerar_relatorio_pdf,
+                     methods=['GET'])
 
     # Pedidos de Doação
     app.add_url_rule('/pedidos', 'listar_pedidos', pedido_doacao_controller.listar_pedidos)
     app.add_url_rule('/cadastrar_pedido', 'cadastrar_pedido', pedido_doacao_controller.cadastrar_pedido, methods=['GET', 'POST'])
     app.add_url_rule('/editar_pedido/<int:id>', 'editar_pedido', pedido_doacao_controller.editar_pedido, methods=['GET', 'POST'])
     app.add_url_rule('/relatorio_pedidos_pdf', 'relatorio_pedidos_pdf', pedido_doacao_controller.gerar_relatorio_pdf, methods=['GET'])
+
     #Linha add para excluir pedidos
     app.add_url_rule('/pedidos/delete/<int:id>', 'delete_pedido', pedido_doacao_controller.delete_pedido, methods=['POST'])
     #Add para exlcuir doações

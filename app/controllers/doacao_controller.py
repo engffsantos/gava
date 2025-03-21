@@ -5,7 +5,10 @@ from app.models.produto import Produto
 from app.__init__ import db
 from datetime import datetime
 from datetime import date
-
+from flask import send_file
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+import os
 
 def listar_doacoes():
     search_pessoa = request.args.get('search_pessoa', '').strip()
@@ -123,3 +126,58 @@ def validar_pedido():
         return redirect(url_for('listar_pedidos'))
 
     return redirect(url_for('registrar_doacao', pessoa_id=pessoa_id, produto_id=produto_id, quantidade=quantidade))
+def gerar_relatorio_pdf():
+    search_pessoa = request.args.get('search_pessoa', '').strip()
+    search_produto = request.args.get('search_produto', '').strip()
+
+    query = Doacao.query.join(Pessoa).join(Produto)
+
+    if search_pessoa:
+        query = query.filter(Pessoa.nome.ilike(f"%{search_pessoa}%"))
+
+    if search_produto:
+        query = query.filter(Produto.nome_produto.ilike(f"%{search_produto}%"))
+
+    doacoes = query.all()
+
+    if not doacoes:
+        flash("Nenhuma doação encontrada para gerar o relatório.", "warning")
+        return redirect(url_for("relatorio_doacoes"))
+
+    pdf_dir = os.path.join("app", "static")
+    if not os.path.exists(pdf_dir):
+        os.makedirs(pdf_dir)
+
+    pdf_filename = f"relatorio_doacoes_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+    pdf_path = os.path.join(pdf_dir, pdf_filename)
+
+    c = canvas.Canvas(pdf_path, pagesize=letter)
+    width, height = letter
+
+    c.setFont("Helvetica-Bold", 16)
+    c.drawString(200, height - 40, "Relatório de Doações")
+
+    c.setFont("Helvetica", 12)
+    y = height - 80
+    c.drawString(30, y, "ID")
+    c.drawString(70, y, "Pessoa")
+    c.drawString(250, y, "Produto")
+    c.drawString(400, y, "Qtd")
+    c.drawString(450, y, "Data")
+    y -= 20
+
+    c.setFont("Helvetica", 10)
+    for d in doacoes:
+        c.drawString(30, y, str(d.id))
+        c.drawString(70, y, d.pessoa.nome[:20])
+        c.drawString(250, y, d.produto.nome_produto[:20])
+        c.drawString(400, y, str(d.quantidade))
+        c.drawString(450, y, d.data_doacao.strftime("%d/%m/%Y"))
+        y -= 20
+        if y < 40:
+            c.showPage()
+            y = height - 80
+
+    c.save()
+
+    return render_template("doacoes/exibir_relatorio.html", pdf_filename=pdf_filename)
