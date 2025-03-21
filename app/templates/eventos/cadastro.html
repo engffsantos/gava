@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Cadastrar Evento</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label for="nome" class="form-label">Nome do Evento</label>
+        <input type="text" class="form-control" id="nome" name="nome" required>
+    </div>
+    <div class="mb-3">
+        <label for="local" class="form-label">Local</label>
+        <input type="text" class="form-control" id="local" name="local" required>
+    </div>
+    <div class="mb-3">
+        <label for="data" class="form-label">Data (MM/AA)</label>
+        <input type="text" class="form-control" id="data" name="data" placeholder="Ex: 07/24" required>
+    </div>
+    <div class="mb-3">
+        <label for="doacao_para" class="form-label">Doação para</label>
+        <input type="text" class="form-control" id="doacao_para" name="doacao_para" required>
+    </div>
+    <div class="mb-3">
+        <label for="doacao" class="form-label">Itens de Doação</label>
+        <textarea class="form-control" id="doacao" name="doacao" rows="3" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>
+{% endblock %}

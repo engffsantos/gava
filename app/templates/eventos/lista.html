@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Eventos</h2>
+
+<a href="{{ url_for('cadastrar_evento') }}" class="btn btn-success mb-3">Cadastrar Novo Evento</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Local</th>
+            <th>Data</th>
+            <th>Doação para</th>
+            <th>Itens Doação</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for evento in eventos %}
+        <tr>
+            <td>{{ evento.nome }}</td>
+            <td>{{ evento.local }}</td>
+            <td>{{ evento.data }}</td>
+            <td>{{ evento.doacao_para }}</td>
+            <td>{{ evento.doacao }}</td>
+            <td>
+                <a href="{{ url_for('editar_evento', id=evento.id) }}" class="btn btn-warning btn-sm">Editar</a>
+                <form action="{{ url_for('excluir_evento', id=evento.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

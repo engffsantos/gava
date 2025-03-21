@@ -3,6 +3,7 @@ from app.models.pessoa import Pessoa
 from app.models.produto import Produto
 from app.models.doacao import Doacao
 from app.models.pedido_doacao import PedidoDoacao
+from app.models.evento import Evento
 
 app = create_app()
 
@@ -41,3 +42,12 @@ with app.app_context():
     except Exception as e:
         print(f"❌ Erro ao criar a tabela 'doacoes': {e}")
 
+
+
+    # Depois dos blocos de criação já existentes, adicione:
+    try:
+        print("🛠 Criando tabela 'eventos'...")
+        Evento.__table__.create(db.engine, checkfirst=True)
+        print("✅ Tabela 'eventos' criada com sucesso!")
+    except Exception as e:
+        print(f"❌ Erro ao criar a tabela 'eventos': {e}")

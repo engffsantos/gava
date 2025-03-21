@@ -1,5 +1,6 @@
 from app.controllers import pessoa_controller, produto_controller, doacao_controller, pedido_doacao_controller
 from flask import Blueprint, render_template
+from app.controllers import evento_controller
 
 main = Blueprint('main', __name__)
 
@@ -40,4 +41,9 @@ def init_routes(app):
     #add listar inativos
     app.add_url_rule('/pessoas/inativas', 'listar_pessoas_inativas', pessoa_controller.listar_pessoas_inativas)
 
+    # Eventos
+    app.add_url_rule('/eventos', 'listar_eventos', evento_controller.listar_eventos)
+    app.add_url_rule('/cadastrar_evento', 'cadastrar_evento', evento_controller.cadastrar_evento, methods=['GET', 'POST'])
+    app.add_url_rule('/editar_evento/<int:id>', 'editar_evento', evento_controller.editar_evento, methods=['GET', 'POST'])
+    app.add_url_rule('/excluir_evento/<int:id>', 'excluir_evento', evento_controller.excluir_evento, methods=['POST'])
 
