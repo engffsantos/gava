@@ -130,15 +130,16 @@ def gerar_relatorio_pdf():
     search_pessoa = request.args.get('search_pessoa', '').strip()
     search_produto = request.args.get('search_produto', '').strip()
 
-    query = Doacao.query.join(Pessoa).join(Produto)
+    # Construção da query com joins e filtros
+    doacoes_query = Doacao.query.join(Pessoa, Doacao.pessoa_id == Pessoa.id).join(Produto, Doacao.produto_id == Produto.id)
 
     if search_pessoa:
-        query = query.filter(Pessoa.nome.ilike(f"%{search_pessoa}%"))
+        doacoes_query = doacoes_query.filter(Pessoa.nome.ilike(f"%{search_pessoa}%"))
 
     if search_produto:
-        query = query.filter(Produto.nome_produto.ilike(f"%{search_produto}%"))
+        doacoes_query = doacoes_query.filter(Produto.nome_produto.ilike(f"%{search_produto}%"))
 
-    doacoes = query.all()
+    doacoes = doacoes_query.all()
 
     if not doacoes:
         flash("Nenhuma doação encontrada para gerar o relatório.", "warning")

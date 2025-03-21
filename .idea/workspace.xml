@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93f0b9b1-009c-4dea-9cf3-976239754924" name="Changes" comment="Feat: criação do cadastro de eventos e melhoria no menu">
-      <change afterPath="$PROJECT_DIR$/app/templates/doacoes/exibir_relatorio.html" afterDir="false" />
+    <list default="true" id="93f0b9b1-009c-4dea-9cf3-976239754924" name="Changes" comment="feat: adicionar geração de relatório de doações em PDF&#10;&#10;- Criada função gerar_relatorio_pdf em doacao_controller.py usando ReportLab&#10;- Adicionada nova rota '/relatorio_doacoes_pdf' em routes.py&#10;- Criado template exibir_relatorio.html para visualização e download do PDF&#10;- Inserido botão &quot;Gerar PDF&quot; na interface relatorio.html">
+      <change afterPath="$PROJECT_DIR$/app/static/relatorio_doacoes_20250321_154506.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/static/relatorio_pedidos_20250321_153915.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/doacao_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/doacao_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/app/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/doacoes/relatorio.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/doacoes/relatorio.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/pedidos/lista.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/pedidos/lista.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,7 +193,7 @@
       <workItem from="1738406832545" duration="3583000" />
       <workItem from="1741864723617" duration="11879000" />
       <workItem from="1741899393966" duration="300000" />
-      <workItem from="1742572680061" duration="3585000" />
+      <workItem from="1742572680061" duration="5221000" />
     </task>
     <task id="LOCAL-00001" summary="Commit inicial">
       <option name="closed" value="true" />
@@ -306,7 +307,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742581482805</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="feat: adicionar geração de relatório de doações em PDF&#10;&#10;- Criada função gerar_relatorio_pdf em doacao_controller.py usando ReportLab&#10;- Adicionada nova rota '/relatorio_doacoes_pdf' em routes.py&#10;- Criado template exibir_relatorio.html para visualização e download do PDF&#10;- Inserido botão &quot;Gerar PDF&quot; na interface relatorio.html">
+      <option name="closed" value="true" />
+      <created>1742582933921</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1742582933921</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,7 +353,8 @@
     <MESSAGE value="Atualização do requirements.txt" />
     <MESSAGE value="feat: validação de pessoa ativa e melhorias na interface&#10;&#10;- Adicionada verificação na função validar_pedido() para impedir doação a pessoas inativas.&#10;- Alertas flash agora aparecem como pop-ups JS no base.html.&#10;- Adicionado botão dinâmico &quot;Ver Inativos&quot; na listagem de pessoas.&#10;- Criada rota listar_pessoas_inativas para exibir apenas pessoas inativas.&#10;- Melhorada a UX na alternância entre pessoas ativas/inativas." />
     <MESSAGE value="Feat: criação do cadastro de eventos e melhoria no menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: criação do cadastro de eventos e melhoria no menu" />
+    <MESSAGE value="feat: adicionar geração de relatório de doações em PDF&#10;&#10;- Criada função gerar_relatorio_pdf em doacao_controller.py usando ReportLab&#10;- Adicionada nova rota '/relatorio_doacoes_pdf' em routes.py&#10;- Criado template exibir_relatorio.html para visualização e download do PDF&#10;- Inserido botão &quot;Gerar PDF&quot; na interface relatorio.html" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: adicionar geração de relatório de doações em PDF&#10;&#10;- Criada função gerar_relatorio_pdf em doacao_controller.py usando ReportLab&#10;- Adicionada nova rota '/relatorio_doacoes_pdf' em routes.py&#10;- Criado template exibir_relatorio.html para visualização e download do PDF&#10;- Inserido botão &quot;Gerar PDF&quot; na interface relatorio.html" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Gava$Flask__app___init___py_.coverage" NAME="Flask (app/__init__.py) Coverage Results" MODIFIED="1737370689547" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />

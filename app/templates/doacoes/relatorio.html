@@ -11,7 +11,13 @@
            value="{{ request.args.get('search_produto', '') }}">
     <button type="submit" class="btn btn-primary">Filtrar</button>
 </form>
-<a href="{{ url_for('relatorio_doacoes_pdf') }}" class="btn btn btn-success mb-3">Gerar PDF</a>
+<!-- Botão para gerar PDF das doações -->
+<form method="GET" action="{{ url_for('relatorio_doacoes_pdf') }}" class="mb-3">
+    <input type="hidden" name="search_pessoa" value="{{ request.args.get('search_pessoa', '') }}">
+    <input type="hidden" name="search_produto" value="{{ request.args.get('search_produto', '') }}">
+    <button type="submit" class="btn btn-success">Gerar PDF</button>
+</form>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -30,7 +36,7 @@
             <td>{{ doacao.pessoa.nome }}</td>
             <td>{{ doacao.produto.nome_produto }}</td>
             <td>{{ doacao.quantidade }}</td>
-            <td>{{ doacao.data_doacao }}</td>
+            <td>{{ doacao.data_doacao.strftime('%d/%m/%Y')  }}</td>
             <td>
                 <a href="{{ url_for('editar_doacao', id=doacao.id) }}" class="btn btn-warning btn-sm">Editar</a>
                 <form action="{{ url_for('delete_doacao', id=doacao.id) }}" method="post" style="display:inline;">

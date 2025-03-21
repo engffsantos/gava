@@ -37,7 +37,7 @@
             <td>{{ pedido.pessoa.nome }}</td>
             <td>{{ pedido.produto.nome_produto }}</td>
             <td>{{ pedido.quantidade }}</td>
-            <td>{{ pedido.data_pedido }}</td>
+            <td>{{ pedido.data_pedido.strftime('%d/%m/%Y') }}</td>
             <td>
                 <a href="{{ url_for('validar_pedido', pessoa_id=pedido.pessoa.id, produto_id=pedido.produto.id, quantidade=pedido.quantidade) }}"
                    class="btn btn-success">
