@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93f0b9b1-009c-4dea-9cf3-976239754924" name="Changes" comment="feat: adicionar geração de relatório de doações em PDF&#10;&#10;- Criada função gerar_relatorio_pdf em doacao_controller.py usando ReportLab&#10;- Adicionada nova rota '/relatorio_doacoes_pdf' em routes.py&#10;- Criado template exibir_relatorio.html para visualização e download do PDF&#10;- Inserido botão &quot;Gerar PDF&quot; na interface relatorio.html">
-      <change afterPath="$PROJECT_DIR$/app/static/relatorio_doacoes_20250321_154506.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/relatorio_pedidos_20250321_153915.pdf" afterDir="false" />
+    <list default="true" id="93f0b9b1-009c-4dea-9cf3-976239754924" name="Changes" comment="feat: validação de pessoa ativa e melhorias na interface&#10;&#10;- Adicionada verificação na função validar_pedido() para impedir doação a pessoas inativas.&#10;- Alertas flash agora aparecem como pop-ups JS no base.html.&#10;- Adicionado botão dinâmico &quot;Ver Inativos&quot; na listagem de pessoas.&#10;- Criada rota listar_pessoas_inativas para exibir apenas pessoas inativas.&#10;- Melhorada a UX na alternância entre pessoas ativas/inativas.">
+      <change afterPath="$PROJECT_DIR$/Análise do Projeto Gava.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/controllers/dashboard_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/static/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/dashboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/doacao_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/doacao_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/app/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/doacoes/relatorio.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/doacoes/relatorio.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/pedidos/lista.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/pedidos/lista.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,36 +58,39 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2raLVueyd2tNea6DNETsKAxllgJ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Flask server.Flask (app/__init__.py).executor": "Run",
-    "Flask server.Flask (create_tables.py).executor": "Run",
-    "Flask server.Flask (criar.py).executor": "Run",
-    "Flask server.Gava.executor": "Run",
-    "Python.db.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "F:/Projetos_EasyData360/gava",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Flask server.Flask (app/__init__.py).executor&quot;: &quot;Run&quot;,
+    &quot;Flask server.Flask (create_tables.py).executor&quot;: &quot;Run&quot;,
+    &quot;Flask server.Flask (criar.py).executor&quot;: &quot;Run&quot;,
+    &quot;Flask server.Gava.executor&quot;: &quot;Run&quot;,
+    &quot;Python.db.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Projetos_EasyData360/gava&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\Projetos_EasyData360\gava\app\static" />
+      <recent name="F:\Projetos_EasyData360\gava\app\templates" />
+      <recent name="F:\Projetos_EasyData360\gava" />
       <recent name="F:\Projetos_EasyData360\Gava\app" />
       <recent name="F:\Projetos_EasyData360\Gava\migrations" />
     </key>
@@ -115,7 +120,7 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -131,7 +136,7 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.12" />
+      <option name="SDK_NAME" value="Python 3.10" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -157,16 +162,16 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Flask server.Flask (app/__init__.py)" />
         <item itemvalue="Flask server.Flask (create_tables.py)" />
+        <item itemvalue="Flask server.Flask (app/__init__.py)" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
-        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-PY-251.23774.444" />
+        <option value="bundled-python-sdk-890ed5b35930-d9c5bdb153f4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.23774.444" />
       </set>
     </attachedChunks>
   </component>
@@ -193,7 +198,6 @@
       <workItem from="1738406832545" duration="3583000" />
       <workItem from="1741864723617" duration="11879000" />
       <workItem from="1741899393966" duration="300000" />
-      <workItem from="1742572680061" duration="5221000" />
     </task>
     <task id="LOCAL-00001" summary="Commit inicial">
       <option name="closed" value="true" />
@@ -299,23 +303,7 @@
       <option name="project" value="LOCAL" />
       <updated>1741879249450</updated>
     </task>
-    <task id="LOCAL-00014" summary="Feat: criação do cadastro de eventos e melhoria no menu">
-      <option name="closed" value="true" />
-      <created>1742581482805</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1742581482805</updated>
-    </task>
-    <task id="LOCAL-00015" summary="feat: adicionar geração de relatório de doações em PDF&#10;&#10;- Criada função gerar_relatorio_pdf em doacao_controller.py usando ReportLab&#10;- Adicionada nova rota '/relatorio_doacoes_pdf' em routes.py&#10;- Criado template exibir_relatorio.html para visualização e download do PDF&#10;- Inserido botão &quot;Gerar PDF&quot; na interface relatorio.html">
-      <option name="closed" value="true" />
-      <created>1742582933921</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1742582933921</updated>
-    </task>
-    <option name="localTasksCounter" value="16" />
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,19 +314,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/master" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -352,16 +328,13 @@
     <MESSAGE value="✨ Melhorias e ajustes na gestão de Pessoas e Doações&#10;&#10;- Adicionado filtro de pesquisa por nome nas telas de lista.&#10;- Ajustado botão de excluir na tela de Pessoas para desabilitar em vez de remover.&#10;- Permitir visualização das doações efetuadas e pedidos de doação ao clicar no nome da pessoa.&#10;- Impedida duplicação de cadastros de produtos e pessoas.&#10;- Bloqueada doação de produtos com estoque zerado, exibindo mensagem de erro.&#10;- Melhorado relatório de pessoa com doações recebidas e sinalização de pedidos já realizados, incluindo novo filtro.&#10;- Criado botão para geração de PDF com pedidos de doação por cliente." />
     <MESSAGE value="Atualização do requirements.txt" />
     <MESSAGE value="feat: validação de pessoa ativa e melhorias na interface&#10;&#10;- Adicionada verificação na função validar_pedido() para impedir doação a pessoas inativas.&#10;- Alertas flash agora aparecem como pop-ups JS no base.html.&#10;- Adicionado botão dinâmico &quot;Ver Inativos&quot; na listagem de pessoas.&#10;- Criada rota listar_pessoas_inativas para exibir apenas pessoas inativas.&#10;- Melhorada a UX na alternância entre pessoas ativas/inativas." />
-    <MESSAGE value="Feat: criação do cadastro de eventos e melhoria no menu" />
-    <MESSAGE value="feat: adicionar geração de relatório de doações em PDF&#10;&#10;- Criada função gerar_relatorio_pdf em doacao_controller.py usando ReportLab&#10;- Adicionada nova rota '/relatorio_doacoes_pdf' em routes.py&#10;- Criado template exibir_relatorio.html para visualização e download do PDF&#10;- Inserido botão &quot;Gerar PDF&quot; na interface relatorio.html" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: adicionar geração de relatório de doações em PDF&#10;&#10;- Criada função gerar_relatorio_pdf em doacao_controller.py usando ReportLab&#10;- Adicionada nova rota '/relatorio_doacoes_pdf' em routes.py&#10;- Criado template exibir_relatorio.html para visualização e download do PDF&#10;- Inserido botão &quot;Gerar PDF&quot; na interface relatorio.html" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: validação de pessoa ativa e melhorias na interface&#10;&#10;- Adicionada verificação na função validar_pedido() para impedir doação a pessoas inativas.&#10;- Alertas flash agora aparecem como pop-ups JS no base.html.&#10;- Adicionado botão dinâmico &quot;Ver Inativos&quot; na listagem de pessoas.&#10;- Criada rota listar_pessoas_inativas para exibir apenas pessoas inativas.&#10;- Melhorada a UX na alternância entre pessoas ativas/inativas." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Gava$Flask__app___init___py_.coverage" NAME="Flask (app/__init__.py) Coverage Results" MODIFIED="1737370689547" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Gava$Gava.coverage" NAME="Gava Coverage Results" MODIFIED="1737634247838" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/gava$Flask__app___init___py_.coverage" NAME="Flask (app/__init__.py) Coverage Results" MODIFIED="1742572864321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Gava$Flask__criar_py_.coverage" NAME="Flask (criar.py) Coverage Results" MODIFIED="1737370030448" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/gava$Gava.coverage" NAME="Gava Coverage Results" MODIFIED="1742573919250" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gava$Gava.coverage" NAME="Gava Coverage Results" MODIFIED="1738407326332" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Gava$db.coverage" NAME="db Coverage Results" MODIFIED="1737370550305" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app/utils" />
     <SUITE FILE_PATH="coverage/gava$Flask__create_tables_py_.coverage" NAME="Flask (create_tables.py) Coverage Results" MODIFIED="1738246061946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Gava$Flask__create_tables_py_.coverage" NAME="Flask (create_tables.py) Coverage Results" MODIFIED="1737554123910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />

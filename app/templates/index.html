@@ -1,43 +1,75 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Principal</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container my-5">
-        <h1 class="text-center mb-4">Sistema de Doações - GAVA</h1>
-        <div class="row justify-content-center">
-            <!-- Botão para Pessoas -->
-            <div class="col-md-4 mb-3">
-                <a href="/pessoas" class="btn btn-primary btn-lg w-100">
-                    Gerenciar Pessoas
-                </a>
-            </div>
-            <!-- Botão para Produtos -->
-            <div class="col-md-4 mb-3">
-                <a href="/produtos" class="btn btn-success btn-lg w-100">
-                    Gerenciar Produtos
-                </a>
-            </div>
-            <!-- Botão para Doações -->
-            <div class="col-md-4 mb-3">
-                <a href="/doacoes" class="btn btn-warning btn-lg w-100">
-                    Gerenciar Doações
-                </a>
-            </div>
-        </div>
-        <footer class="text-center mt-5">
-            <br class="text-muted">&copy; 2025 Sistema de Doações - 03/2025 </br>
-            <p class="text-muted small">Desenvolvido para facilitar a gestão de doações.</p>
-            <p class="text-muted">EasyData360</p>
-        </footer>
-    </div>
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-5">
+  <!-- Cabeçalho -->
+  <div class="text-center mb-5">
+    <h1 class="display-4">Gava - Sistema de Doações</h1>
+    <p class="lead">Bem-vindo ao Gava - simplificando a gestão de doações para instituições sociais.</p>
+  </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+  <!-- Cards com Links Rápidos -->
+  <div class="row text-center mb-5">
+    <div class="col-md-3 mb-3">
+      <a href="/cadastrar_pessoa" class="btn btn-outline-primary w-100 py-3">Cadastrar Pessoa</a>
+    </div>
+    <div class="col-md-3 mb-3">
+      <a href="/pessoas" class="btn btn-outline-primary w-100 py-3">Listar Pessoas</a>
+    </div>
+    <div class="col-md-3 mb-3">
+      <a href="/cadastrar_produto" class="btn btn-outline-success w-100 py-3">Cadastrar Produto</a>
+    </div>
+    <div class="col-md-3 mb-3">
+      <a href="/produtos" class="btn btn-outline-success w-100 py-3">Listar Produtos</a>
+    </div>
+    <div class="col-md-4 mb-3">
+      <a href="/registrar_doacao" class="btn btn-outline-warning w-100 py-3">Registrar Doação</a>
+    </div>
+    <div class="col-md-4 mb-3">
+      <a href="/doacoes" class="btn btn-outline-warning w-100 py-3">Ver Doações</a>
+    </div>
+    <div class="col-md-4 mb-3">
+      <a href="/relatorio_doacoes_pdf" class="btn btn-outline-secondary w-100 py-3">Gerar Relatórios</a>
+    </div>
+  </div>
+
+  <!-- Resumo de Indicadores -->
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Pessoas Cadastradas</h5>
+          <p class="display-6">{{ stats.total_pessoas }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Produtos Disponíveis</h5>
+          <p class="display-6">{{ stats.total_produtos }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Doações Realizadas</h5>
+          <p class="display-6">{{ stats.total_doacoes }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Produto + Doados</h5>
+          {% if produtos_top %}
+            <p class="display-6">{{ produtos_top[0].nome }} ({{ produtos_top[0].total }})</p>
+          {% else %}
+            <p class="text-muted">Sem dados</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

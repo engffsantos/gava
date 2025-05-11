@@ -1,12 +1,37 @@
-from app.controllers import pessoa_controller, produto_controller, doacao_controller, pedido_doacao_controller
+#Projetos_EasyData360\gava\app\routes.py
 from flask import Blueprint, render_template
-from app.controllers import evento_controller
+from sqlalchemy import func
+from app import db
+from app.models.pessoa import Pessoa
+from app.models.produto import Produto
+from app.models.doacao import Doacao
+from app.models.evento import Evento
+from app.controllers import pessoa_controller, produto_controller, doacao_controller, pedido_doacao_controller, evento_controller
 
 main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    # Coletar dados básicos
+    total_pessoas = db.session.query(func.count(Pessoa.id)).scalar()
+    total_produtos = db.session.query(func.count(Produto.id)).scalar()
+    total_doacoes = db.session.query(func.count(Doacao.id)).scalar()
+
+    stats = {
+        'total_pessoas': total_pessoas,
+        'total_produtos': total_produtos,
+        'total_doacoes': total_doacoes
+    }
+
+    # Produto mais doado
+    produtos_top = db.session.query(
+        Produto.nome_produto.label('nome'),
+        func.sum(Doacao.quantidade).label('total')
+    ).join(Doacao).group_by(Produto.nome_produto)\
+     .order_by(func.sum(Doacao.quantidade).desc()).limit(5).all()
+
+    return render_template('index.html', stats=stats, produtos_top=produtos_top)
+
 
 def init_routes(app):
     # Pessoas
@@ -50,3 +75,6 @@ def init_routes(app):
     app.add_url_rule('/editar_evento/<int:id>', 'editar_evento', evento_controller.editar_evento, methods=['GET', 'POST'])
     app.add_url_rule('/excluir_evento/<int:id>', 'excluir_evento', evento_controller.excluir_evento, methods=['POST'])
 
+    #dashboard
+    from app.controllers import dashboard_controller
+    app.register_blueprint(dashboard_controller.bp_dashboard)

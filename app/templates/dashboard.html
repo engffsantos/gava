@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4">Dashboard</h1>
+
+  <!-- Cards Estatísticos -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Pessoas Cadastradas</h5>
+          <p class="card-text display-4">{{ stats.total_pessoas }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-success mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Produtos Disponíveis</h5>
+          <p class="card-text display-4">{{ stats.total_produtos }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-danger mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Doações Realizadas</h5>
+          <p class="card-text display-4">{{ stats.total_doacoes }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-warning mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Baixo Estoque</h5>
+          <p class="card-text display-4">{{ stats.produtos_baixo_estoque }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Doações Recentes -->
+  <div class="card mb-4">
+    <div class="card-header">Doações Recentes</div>
+    <ul class="list-group list-group-flush">
+      {% for doacao in doacoes_recentes %}
+        <li class="list-group-item">
+          <strong>{{ doacao.pessoa }}</strong> recebeu {{ doacao.quantidade }}x {{ doacao.produto }} em {{ doacao.data }}
+        </li>
+      {% else %}
+        <li class="list-group-item text-muted">Nenhuma doação recente.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Produtos Mais Doados -->
+  <div class="card mb-4">
+    <div class="card-header">Produtos Mais Doados</div>
+    <ul class="list-group list-group-flush">
+        {% for produto in produtos_top %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ produto.nome }}
+            <span class="badge bg-primary rounded-pill">{{ produto.total }}x</span>
+          </li>
+        {% endfor %}
+
+
+    </ul>
+  </div>
+
+  <!-- Donatário Mais Ativos -->
+  <div class="card mb-4">
+    <div class="card-header">Donatário  Mais Ativos</div>
+    <ul class="list-group list-group-flush">
+      {% for doador in doadores_top %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{ doador.nome }}
+          <span class="badge bg-success rounded-pill">{{ doador.total }} doações</span>
+        </li>
+      {% else %}
+        <li class="list-group-item text-muted">Nenhum doador ativo.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Próximos Eventos -->
+  <div class="card mb-4">
+    <div class="card-header">Próximos Eventos</div>
+    <ul class="list-group list-group-flush">
+      {% for evento in eventos_proximos %}
+        <li class="list-group-item">
+          <strong>{{ evento.nome }}</strong> | {{ evento.local }} - {{ evento.data }} <br>
+          Beneficiário: {{ evento.doacao_para }} <br>
+          Itens: {{ evento.doacao }}
+        </li>
+      {% else %}
+        <li class="list-group-item text-muted">Nenhum evento cadastrado.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

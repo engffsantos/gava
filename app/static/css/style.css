@@ -1,0 +1,72 @@
+body {
+    overflow-x: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    color: #343a40;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(180deg, #0062cc, #004085);
+    color: white;
+    padding: 15px;
+    position: fixed;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.sidebar h4 {
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.sidebar .nav-link, .sidebar .nav-link:visited {
+    color: white;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.accordion-button {
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.accordion-item {
+    background-color: transparent;
+    border: none;
+}
+
+.content {
+    margin-left: 270px;
+    padding: 30px;
+    transition: margin 0.3s ease;
+}
+
+.alert {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+footer {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    font-size: 0.9em;
+    border-top: 1px solid #dee2e6;
+    margin-left: 250px;
+    padding: 20px 0;
+}
