@@ -2,6 +2,7 @@ from app.__init__ import db
 from flask import jsonify
 from datetime import date
 from app.models import Produto
+from app.models.pedido_doacao import PedidoDoacao
 
 
 class Doacao(db.Model):

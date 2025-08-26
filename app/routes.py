@@ -13,12 +13,14 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     # Coletar dados básicos
-    total_pessoas = db.session.query(func.count(Pessoa.id)).scalar()
+    total_pessoas_ativas = db.session.query(func.count()).select_from(Pessoa).filter_by(ativo=True).scalar()
+    total_pessoas_inativas = db.session.query(func.count()).select_from(Pessoa).filter_by(ativo=False).scalar()
     total_produtos = db.session.query(func.count(Produto.id)).scalar()
     total_doacoes = db.session.query(func.count(Doacao.id)).scalar()
 
     stats = {
-        'total_pessoas': total_pessoas,
+        'total_pessoas_ativas': total_pessoas_ativas,
+        'total_pessoas_inativas': total_pessoas_inativas,
         'total_produtos': total_produtos,
         'total_doacoes': total_doacoes
     }
@@ -30,7 +32,12 @@ def index():
     ).join(Doacao).group_by(Produto.nome_produto)\
      .order_by(func.sum(Doacao.quantidade).desc()).limit(5).all()
 
-    return render_template('index.html', stats=stats, produtos_top=produtos_top)
+    # Doações recentes
+    doacoes_recentes = db.session.query(Doacao).join(Pessoa).join(Produto) \
+        .order_by(Doacao.data_doacao.desc()).limit(5).all()
+
+    return render_template('index.html', stats=stats, produtos_top=produtos_top, doacoes_recentes=doacoes_recentes)
+
 
 
 def init_routes(app):

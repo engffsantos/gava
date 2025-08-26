@@ -13,6 +13,9 @@ import os
 def listar_doacoes():
     search_pessoa = request.args.get('search_pessoa', '').strip()
     search_produto = request.args.get('search_produto', '').strip()
+    ano = request.args.get('ano', '').strip()
+    data_inicio = request.args.get('data_inicio', '').strip()
+    data_fim = request.args.get('data_fim', '').strip()
 
     query = Doacao.query.join(Pessoa).join(Produto)
 
@@ -22,9 +25,15 @@ def listar_doacoes():
     if search_produto:
         query = query.filter(Produto.nome_produto.ilike(f"%{search_produto}%"))
 
-    doacoes = query.all()
+    if ano:
+        query = query.filter(func.extract('year', Doacao.data_doacao) == int(ano))
 
+    if data_inicio and data_fim:
+        query = query.filter(Doacao.data_doacao.between(data_inicio, data_fim))
+
+    doacoes = query.all()
     return render_template('doacoes/relatorio.html', doacoes=doacoes)
+
 
 
 def registrar_doacao():

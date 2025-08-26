@@ -1,28 +1,89 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Relatório de Pedidos de Doação</h1>
+<h1 class="mb-4">Relatório de Pedidos de Doação</h1>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome da Pessoa</th>
-            <th>Produto</th>
-            <th>Quantidade</th>
-            <th>Data</th>
-        </tr>
+<form method="get" class="form-row align-items-end mb-4">
+  <div class="form-group col-md-3">
+    <label for="data_inicial">Data Inicial</label>
+    <input
+      type="date"
+      class="form-control"
+      id="data_inicial"
+      name="data_inicial"
+      value="{{ request.args.get('data_inicial','') }}"
+    />
+  </div>
+
+  <div class="form-group col-md-3">
+    <label for="data_final">Data Final</label>
+    <input
+      type="date"
+      class="form-control"
+      id="data_final"
+      name="data_final"
+      value="{{ request.args.get('data_final','') }}"
+    />
+  </div>
+
+  <div class="form-group col-md-3">
+    <label for="search_produto">Produto</label>
+    <input
+      type="text"
+      class="form-control"
+      id="search_produto"
+      name="search_produto"
+      placeholder="Digite o nome do produto"
+      value="{{ request.args.get('search_produto','') }}"
+    />
+  </div>
+
+  <div class="form-group col-md-3">
+    <label for="order_by">Ordenar por</label>
+    <select class="form-control" id="order_by" name="order_by">
+      {# Ordenações mais usadas primeiro #}
+      <option value="data_desc" {{ 'selected' if request.args.get('order_by','data_desc')=='data_desc' else '' }}>Data (mais recente)</option>
+      <option value="data_asc"  {{ 'selected' if request.args.get('order_by')=='data_asc'  else '' }}>Data (mais antiga)</option>
+      <option value="pessoa_asc" {{ 'selected' if request.args.get('order_by')=='pessoa_asc' else '' }}>Pessoa (A→Z)</option>
+      <option value="pessoa_desc" {{ 'selected' if request.args.get('order_by')=='pessoa_desc' else '' }}>Pessoa (Z→A)</option>
+      <option value="produto_asc" {{ 'selected' if request.args.get('order_by')=='produto_asc' else '' }}>Produto (A→Z)</option>
+      <option value="produto_desc" {{ 'selected' if request.args.get('order_by')=='produto_desc' else '' }}>Produto (Z→A)</option>
+    </select>
+  </div>
+
+  <div class="form-group col-12 mt-2">
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+    {% if request.args %}
+      <a href="{{ url_for('relatorio_pedidos') }}" class="btn btn-secondary ml-2">Limpar</a>
+    {% endif %}
+  </div>
+</form>
+
+{% if pedidos|length == 0 %}
+  <div class="alert alert-info">Nenhum pedido encontrado para os filtros aplicados.</div>
+{% else %}
+  <table class="table table-bordered table-striped">
+    <thead class="thead-light">
+      <tr>
+        <th style="width: 70px;">ID</th>
+        <th>Pessoa</th>
+        <th>Produto</th>
+        <th class="text-right" style="width: 120px;">Quantidade</th>
+        <th style="width: 140px;">Data</th>
+      </tr>
     </thead>
     <tbody>
-        {% for pedido in pedidos %}
-        <tr>
-            <td>{{ pedido.id }}</td>
-            <td>{{ pedido.pessoa.nome }}</td>
-            <td>{{ pedido.produto.nome_produto }}</td>
-            <td>{{ pedido.quantidade }}</td>
-            <td>{{ pedido.data_pedido.strftime('%d/%m/%Y') }}</td>
-        </tr>
-        {% endfor %}
+      {% for pedido in pedidos %}
+      <tr>
+        <td>{{ pedido.id }}</td>
+        <td>{{ pedido.pessoa.nome }}</td>
+        <td>{{ pedido.produto.nome_produto }}</td>
+        <td class="text-right">{{ pedido.quantidade }}</td>
+        <td>{% if pedido.data_pedido %}{{ pedido.data_pedido.strftime('%d/%m/%Y') }}{% endif %}</td>
+      </tr>
+      {% endfor %}
     </tbody>
-</table>
+  </table>
+  <p class="mt-2"><strong>Total de registros:</strong> {{ pedidos|length }}</p>
+{% endif %}
 {% endblock %}

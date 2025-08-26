@@ -4,17 +4,34 @@
 <h1>Relatório de Doações</h1>
 
 <!-- Filtro de Pesquisa -->
-<form method="GET" action="{{ url_for('relatorio_doacoes') }}" class="mb-3" style="display: flex; gap: 10px;">
-    <input type="text" name="search_pessoa" class="form-control" placeholder="Buscar por pessoa..."
-           value="{{ request.args.get('search_pessoa', '') }}">
-    <input type="text" name="search_produto" class="form-control" placeholder="Buscar por produto..."
-           value="{{ request.args.get('search_produto', '') }}">
-    <button type="submit" class="btn btn-primary">Filtrar</button>
+<form method="GET" action="{{ url_for('relatorio_doacoes') }}" class="mb-3 row g-3">
+    <div class="col-md-3">
+        <input type="text" name="search_pessoa" class="form-control" placeholder="Buscar por pessoa..." value="{{ request.args.get('search_pessoa', '') }}">
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="search_produto" class="form-control" placeholder="Buscar por produto..." value="{{ request.args.get('search_produto', '') }}">
+    </div>
+    <div class="col-md-2">
+        <input type="text" name="ano" class="form-control" placeholder="Ano (ex: 2023)" value="{{ request.args.get('ano', '') }}">
+    </div>
+    <div class="col-md-2">
+        <input type="date" name="data_inicio" class="form-control" value="{{ request.args.get('data_inicio', '') }}">
+    </div>
+    <div class="col-md-2">
+        <input type="date" name="data_fim" class="form-control" value="{{ request.args.get('data_fim', '') }}">
+    </div>
+    <div class="col-12 text-end">
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
 </form>
+
 <!-- Botão para gerar PDF das doações -->
 <form method="GET" action="{{ url_for('relatorio_doacoes_pdf') }}" class="mb-3">
     <input type="hidden" name="search_pessoa" value="{{ request.args.get('search_pessoa', '') }}">
     <input type="hidden" name="search_produto" value="{{ request.args.get('search_produto', '') }}">
+    <input type="hidden" name="ano" value="{{ request.args.get('ano', '') }}">
+    <input type="hidden" name="data_inicio" value="{{ request.args.get('data_inicio', '') }}">
+    <input type="hidden" name="data_fim" value="{{ request.args.get('data_fim', '') }}">
     <button type="submit" class="btn btn-success">Gerar PDF</button>
 </form>
 
@@ -36,7 +53,7 @@
             <td>{{ doacao.pessoa.nome }}</td>
             <td>{{ doacao.produto.nome_produto }}</td>
             <td>{{ doacao.quantidade }}</td>
-            <td>{{ doacao.data_doacao.strftime('%d/%m/%Y')  }}</td>
+            <td>{{ doacao.data_doacao.strftime('%d/%m/%Y') }}</td>
             <td>
                 <a href="{{ url_for('editar_doacao', id=doacao.id) }}" class="btn btn-warning btn-sm">Editar</a>
                 <form action="{{ url_for('delete_doacao', id=doacao.id) }}" method="post" style="display:inline;">

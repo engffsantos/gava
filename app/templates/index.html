@@ -8,58 +8,63 @@
   </div>
 
   <!-- Cards com Links Rápidos -->
-  <div class="row text-center mb-5">
-    <div class="col-md-3 mb-3">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 text-center mb-5 g-3">
+    <div class="col">
       <a href="/cadastrar_pessoa" class="btn btn-outline-primary w-100 py-3">Cadastrar Pessoa</a>
     </div>
-    <div class="col-md-3 mb-3">
+    <div class="col">
       <a href="/pessoas" class="btn btn-outline-primary w-100 py-3">Listar Pessoas</a>
     </div>
-    <div class="col-md-3 mb-3">
+    <div class="col">
       <a href="/cadastrar_produto" class="btn btn-outline-success w-100 py-3">Cadastrar Produto</a>
     </div>
-    <div class="col-md-3 mb-3">
+    <div class="col">
       <a href="/produtos" class="btn btn-outline-success w-100 py-3">Listar Produtos</a>
     </div>
-    <div class="col-md-4 mb-3">
+    <div class="col">
       <a href="/registrar_doacao" class="btn btn-outline-warning w-100 py-3">Registrar Doação</a>
     </div>
-    <div class="col-md-4 mb-3">
+    <div class="col">
       <a href="/doacoes" class="btn btn-outline-warning w-100 py-3">Ver Doações</a>
     </div>
-    <div class="col-md-4 mb-3">
+    <div class="col">
       <a href="/relatorio_doacoes_pdf" class="btn btn-outline-secondary w-100 py-3">Gerar Relatórios</a>
     </div>
   </div>
 
   <!-- Resumo de Indicadores -->
-  <div class="row">
-    <div class="col-md-3">
+  <div class="row pyg-4">
+    <div class="col">
       <div class="card text-center shadow-sm">
         <div class="card-body">
-          <h5 class="card-title">Pessoas Cadastradas</h5>
-          <p class="display-6">{{ stats.total_pessoas }}</p>
+          <h5 class="card-title text-success">Pessoas Ativas</h5>
+          <p class="display-6">{{ stats.total_pessoas_ativas }}</p>
+        </div>
+      </div>
+      <div class="card text-center shadow-sm mt-2">
+        <div class="card-body">
+          <h5 class="card-title text-danger">Pessoas Inativas</h5>
+          <p class="display-6">{{ stats.total_pessoas_inativas }}</p>
         </div>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col">
       <div class="card text-center shadow-sm">
         <div class="card-body">
           <h5 class="card-title">Produtos Disponíveis</h5>
           <p class="display-6">{{ stats.total_produtos }}</p>
         </div>
       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card text-center shadow-sm">
+
+      <div class="card text-center shadow-sm mt-2">
         <div class="card-body">
           <h5 class="card-title">Doações Realizadas</h5>
           <p class="display-6">{{ stats.total_doacoes }}</p>
         </div>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="card text-center shadow-sm">
+    <div class="col-md-6">
+      <div class="card text-center shadow-sm h-100">
         <div class="card-body">
           <h5 class="card-title">Produto + Doados</h5>
           {% if produtos_top %}
@@ -69,6 +74,33 @@
           {% endif %}
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Doações Recentes -->
+  <div class="mt-5">
+    <h3>Doações Recentes</h3>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Pessoa</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for doacao in doacoes_recentes %}
+          <tr>
+            <td>{{ doacao.data_doacao.strftime('%d/%m/%Y') }}</td>
+            <td>{{ doacao.pessoa.nome }}</td>
+            <td>{{ doacao.produto.nome_produto }}</td>
+            <td>{{ doacao.quantidade }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
