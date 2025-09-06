@@ -9,32 +9,55 @@ from flask import send_file
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import os
+# 🔧 (novo) helper para converter string -> date com validação
+def _to_date(s: str):
+    if not s:
+        return None
+    try:
+        return datetime.strptime(s, "%Y-%m-%d").date()
+    except ValueError:
+        return None
 
 def listar_doacoes():
     search_pessoa = request.args.get('search_pessoa', '').strip()
     search_produto = request.args.get('search_produto', '').strip()
-    ano = request.args.get('ano', '').strip()
-    data_inicio = request.args.get('data_inicio', '').strip()
-    data_fim = request.args.get('data_fim', '').strip()
+    ano_str = request.args.get('ano', '').strip()
+    data_inicio_str = request.args.get('data_inicio', '').strip()
+    data_fim_str = request.args.get('data_fim', '').strip()
 
+    data_inicio = _to_date(data_inicio_str)
+    data_fim = _to_date(data_fim_str)
+
+    # 🔒 Constrói a query base
     query = Doacao.query.join(Pessoa).join(Produto)
 
+    # Filtros por pessoa/produto
     if search_pessoa:
         query = query.filter(Pessoa.nome.ilike(f"%{search_pessoa}%"))
-
     if search_produto:
         query = query.filter(Produto.nome_produto.ilike(f"%{search_produto}%"))
 
-    if ano:
-        query = query.filter(func.extract('year', Doacao.data_doacao) == int(ano))
+    # Filtro por ano (intersecta com as datas, se houver)
+    ano = None
+    if ano_str.isdigit():
+        ano = int(ano_str)
 
+    # Intervalo por datas (>=, <= ou between)
     if data_inicio and data_fim:
         query = query.filter(Doacao.data_doacao.between(data_inicio, data_fim))
+    elif data_inicio:
+        query = query.filter(Doacao.data_doacao >= data_inicio)
+    elif data_fim:
+        query = query.filter(Doacao.data_doacao <= data_fim)
+
+    # Se ano foi informado, intersecta com 1º jan .. 31 dez do ano
+    if ano:
+        ano_ini = date(ano, 1, 1)
+        ano_fim = date(ano, 12, 31)
+        query = query.filter(Doacao.data_doacao.between(ano_ini, ano_fim))
 
     doacoes = query.all()
     return render_template('doacoes/relatorio.html', doacoes=doacoes)
-
-
 
 def registrar_doacao():
     from app.models.pedido_doacao import PedidoDoacao  # Importação corrigida dentro da função
@@ -135,18 +158,37 @@ def validar_pedido():
         return redirect(url_for('listar_pedidos'))
 
     return redirect(url_for('registrar_doacao', pessoa_id=pessoa_id, produto_id=produto_id, quantidade=quantidade))
+# doacao_controller.py (mesma lógica aplicada no PDF)
 def gerar_relatorio_pdf():
     search_pessoa = request.args.get('search_pessoa', '').strip()
     search_produto = request.args.get('search_produto', '').strip()
+    ano_str = request.args.get('ano', '').strip()
+    data_inicio_str = request.args.get('data_inicio', '').strip()
+    data_fim_str = request.args.get('data_fim', '').strip()
 
-    # Construção da query com joins e filtros
-    doacoes_query = Doacao.query.join(Pessoa, Doacao.pessoa_id == Pessoa.id).join(Produto, Doacao.produto_id == Produto.id)
+    data_inicio = _to_date(data_inicio_str)
+    data_fim = _to_date(data_fim_str)
+    ano = int(ano_str) if ano_str.isdigit() else None
+
+    doacoes_query = Doacao.query.join(Pessoa, Doacao.pessoa_id == Pessoa.id)\
+                                .join(Produto, Doacao.produto_id == Produto.id)
 
     if search_pessoa:
         doacoes_query = doacoes_query.filter(Pessoa.nome.ilike(f"%{search_pessoa}%"))
-
     if search_produto:
         doacoes_query = doacoes_query.filter(Produto.nome_produto.ilike(f"%{search_produto}%"))
+
+    if data_inicio and data_fim:
+        doacoes_query = doacoes_query.filter(Doacao.data_doacao.between(data_inicio, data_fim))
+    elif data_inicio:
+        doacoes_query = doacoes_query.filter(Doacao.data_doacao >= data_inicio)
+    elif data_fim:
+        doacoes_query = doacoes_query.filter(Doacao.data_doacao <= data_fim)
+
+    if ano:
+        ano_ini = date(ano, 1, 1)
+        ano_fim = date(ano, 12, 31)
+        doacoes_query = doacoes_query.filter(Doacao.data_doacao.between(ano_ini, ano_fim))
 
     doacoes = doacoes_query.all()
 
@@ -155,8 +197,7 @@ def gerar_relatorio_pdf():
         return redirect(url_for("relatorio_doacoes"))
 
     pdf_dir = os.path.join("app", "static")
-    if not os.path.exists(pdf_dir):
-        os.makedirs(pdf_dir)
+    os.makedirs(pdf_dir, exist_ok=True)
 
     pdf_filename = f"relatorio_doacoes_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
     pdf_path = os.path.join(pdf_dir, pdf_filename)
