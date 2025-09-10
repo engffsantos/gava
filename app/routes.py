@@ -39,14 +39,14 @@ def index():
     return render_template('index.html', stats=stats, produtos_top=produtos_top, doacoes_recentes=doacoes_recentes)
 
 
-
 def init_routes(app):
     # Pessoas
-
     app.add_url_rule('/pessoas', 'listar_pessoas', pessoa_controller.listar_pessoas)
     app.add_url_rule('/cadastrar_pessoa', 'cadastrar_pessoa', pessoa_controller.cadastrar_pessoa, methods=['GET', 'POST'])
     app.add_url_rule('/editar_pessoa/<int:id>', 'editar_pessoa', pessoa_controller.editar_pessoa, methods=['GET', 'POST'])
     app.add_url_rule('/desativar_pessoa/<int:id>', 'desativar_pessoa', pessoa_controller.desativar_pessoa, methods=['POST'])
+    # Busca dinâmica de pessoas (autocomplete)
+    app.add_url_rule('/pessoas/busca', 'buscar_pessoas', pessoa_controller.buscar_pessoas, methods=['GET'])
 
     # Produtos
     app.add_url_rule('/produtos', 'listar_produtos', produto_controller.listar_produtos)
@@ -58,8 +58,7 @@ def init_routes(app):
     app.add_url_rule('/registrar_doacao', 'registrar_doacao', doacao_controller.registrar_doacao, methods=['GET', 'POST'])
     app.add_url_rule('/editar_doacao/<int:id>', 'editar_doacao', doacao_controller.editar_doacao, methods=['GET', 'POST'])
     app.add_url_rule('/doacoes', 'relatorio_doacoes', doacao_controller.listar_doacoes)
-    app.add_url_rule('/relatorio_doacoes_pdf', 'relatorio_doacoes_pdf', doacao_controller.gerar_relatorio_pdf,
-                     methods=['GET'])
+    app.add_url_rule('/relatorio_doacoes_pdf', 'relatorio_doacoes_pdf', doacao_controller.gerar_relatorio_pdf, methods=['GET'])
 
     # Pedidos de Doação
     app.add_url_rule('/pedidos', 'listar_pedidos', pedido_doacao_controller.listar_pedidos)
@@ -67,13 +66,14 @@ def init_routes(app):
     app.add_url_rule('/editar_pedido/<int:id>', 'editar_pedido', pedido_doacao_controller.editar_pedido, methods=['GET', 'POST'])
     app.add_url_rule('/relatorio_pedidos_pdf', 'relatorio_pedidos_pdf', pedido_doacao_controller.gerar_relatorio_pdf, methods=['GET'])
 
-    #Linha add para excluir pedidos
+    # Excluir pedidos e doações
     app.add_url_rule('/pedidos/delete/<int:id>', 'delete_pedido', pedido_doacao_controller.delete_pedido, methods=['POST'])
-    #Add para exlcuir doações
     app.add_url_rule('/doacoes/delete/<int:id>', 'delete_doacao', doacao_controller.delete_doacao, methods=['POST'])
-    #Add Validação de Pedidos
+
+    # Validação de Pedidos
     app.add_url_rule('/validar_pedido', 'validar_pedido', doacao_controller.validar_pedido, methods=['GET'])
-    #add listar inativos
+
+    # Pessoas inativas
     app.add_url_rule('/pessoas/inativas', 'listar_pessoas_inativas', pessoa_controller.listar_pessoas_inativas)
 
     # Eventos
@@ -82,6 +82,6 @@ def init_routes(app):
     app.add_url_rule('/editar_evento/<int:id>', 'editar_evento', evento_controller.editar_evento, methods=['GET', 'POST'])
     app.add_url_rule('/excluir_evento/<int:id>', 'excluir_evento', evento_controller.excluir_evento, methods=['POST'])
 
-    #dashboard
+    # dashboard
     from app.controllers import dashboard_controller
     app.register_blueprint(dashboard_controller.bp_dashboard)

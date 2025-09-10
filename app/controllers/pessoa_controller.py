@@ -3,7 +3,7 @@ from app.models.pessoa import Pessoa
 from app.models.doacao import Doacao
 from app.__init__ import db
 from datetime import datetime
-
+from flask import jsonify
 
 def listar_pessoas():
     search = request.args.get('search', '').strip()  # Obtém o valor da busca
@@ -70,3 +70,30 @@ def desativar_pessoa(id):
 def listar_pessoas_inativas():
     pessoas = Pessoa.query.filter_by(ativo=False).all()
     return render_template('pessoas/lista.html', pessoas=pessoas)
+
+
+def buscar_pessoas():
+    q = (request.args.get('q') or '').strip()
+    if len(q) < 2:
+        return jsonify([])
+
+    termo = f"%{q}%"
+    pessoas = (Pessoa.query
+               .filter(Pessoa.ativo.is_(True))
+               .filter(
+                   (Pessoa.nome.ilike(termo)) |
+                   (Pessoa.telefone.ilike(termo)) |
+                   (Pessoa.bairro.ilike(termo))
+               )
+               .order_by(Pessoa.nome.asc())
+               .limit(20)
+               .all())
+
+    payload = [{
+        "id": p.id,
+        "nome": p.nome,
+        "telefone": p.telefone,
+        "bairro": p.bairro,
+        "ativo": p.ativo
+    } for p in pessoas]
+    return jsonify(payload)

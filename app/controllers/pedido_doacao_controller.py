@@ -94,27 +94,37 @@ def cadastrar_pedido():
     if request.method == 'POST':
         pessoa_id  = request.form.get('pessoa_id')
         produto_id = request.form.get('produto_id')
-        quantidade = request.form.get('quantidade')
+        quantidade = request.form.get('quantidade', type=int)
 
         if not pessoa_id or not produto_id or not quantidade:
             flash('Todos os campos são obrigatórios!', 'danger')
             return redirect(url_for('cadastrar_pedido'))
 
+        pessoa = Pessoa.query.get(pessoa_id)
+        if not pessoa or not pessoa.ativo:
+            flash('Pessoa inválida ou inativa.', 'danger')
+            return redirect(url_for('cadastrar_pedido'))
+
+        produto = Produto.query.get(produto_id)
+        if not produto:
+            flash('Produto inválido.', 'danger')
+            return redirect(url_for('cadastrar_pedido'))
+
         novo_pedido = PedidoDoacao(
-            pessoa_id=pessoa_id,
-            produto_id=produto_id,
-            quantidade=int(quantidade),
-            data_pedido=datetime.utcnow()  # mantém como DateTime
+            pessoa_id=pessoa.id,
+            produto_id=produto.id,
+            quantidade=quantidade,
+            data_pedido=datetime.utcnow()
         )
         db.session.add(novo_pedido)
         db.session.commit()
         flash('Pedido de doação cadastrado com sucesso!', 'success')
         return redirect(url_for('listar_pedidos'))
 
-    pessoas = Pessoa.query.all()
-    produtos = Produto.query.all()
-    return render_template('pedidos/cadastro.html', pessoas=pessoas, produtos=produtos)
-
+    # GET: se o template já busca pessoa via autocomplete, você pode
+    # reduzir a carga e enviar apenas os produtos:
+    produtos = Produto.query.order_by(Produto.nome_produto.asc()).all()
+    return render_template('pedidos/cadastro.html', produtos=produtos)
 def editar_pedido(id):
     pedido = PedidoDoacao.query.get_or_404(id)
 
